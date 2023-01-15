@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+	이 문서는 iBatis에서 처리할  SQL문을 작성하는 문서입니다.
+ -->
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="lprod">
+	<!-- 
+		이 부분에 처리할 SQL문에 맞는 태그를 사용해서 SQL문을 작성한다.
+		
+		- 사용할 수 있는 태그들
+		<select> ~ </select>
+		<insert> ~ </insert>
+		<update> ~ </update>
+		<delete> ~ </delete> 등...
+	 -->
+
+	<!-- 
+		* id속성 ==> 실행할 태그를 JAVA소스에서 호출할 때 사용되는 이름으로
+			위의 <sqlMap>태그의 namespace속성값과 연결해서 작성한다.
+			( 예 : lprod.insertLprod )
+			
+		* parameterClass ==> SQL문에 사용될 데이터가 들어있는 객체를 지정한다.
+				(보통 VO객체, 자바의 기본 자료형, Map객체)의 이름을 기술한다.
+				이 곳에 나타내는 객체는 그 객체의 전체 이름을 기술해야 한다.
+				그렇지만 <typeAlias>로 등록한 alias명을 사용할 수도 있다.
+	 -->
+	
+	<!-- 중복 id 있는 지 검사 -->
+	<select id="searchId" parameterClass="String" resultClass="lprodVo">
+		select lprod_gu from lprod where lprod_gu = #lprod_gu#
+	</select>
+	
+	<!-- 
+	<select id="searchId" resultClass="lprodVo">
+		select max(lprod_id) max_id from lprod
+	</select>
+	 -->
+	<!-- 데이터 추가 -->
+	<insert id="insertLprod" parameterClass="lprodVo">
+		insert into lprod (lprod_id, lprod_gu, lprod_nm)
+		values(#lprod_id#, #lprod_gu#, #lprod_nm#)
+	</insert>
+	
+	
+</sqlMap>
+
+
+
+
+
